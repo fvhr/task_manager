@@ -1,0 +1,23 @@
+@use './libs/normalize';
+@use './components/all';
+@use './variables';
+
+
+.wrapper__forms {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+}
+
+.wrapper {
+	width: 100%;
+  height: 100%;
+}
+
+.container {
+	max-width: 1250px;
+	margin: 0 auto;
+	padding: 15px 0px;
+	box-sizing: border-box;
+}

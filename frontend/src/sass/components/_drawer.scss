@@ -1,0 +1,28 @@
+@use "../variables";
+
+.drawer {
+	padding: 50px;
+
+	&__icon {
+		width: 150px;
+		height: 150px;
+		border-radius: 25px;
+		color: white;
+		font-size: 3rem;
+		margin-bottom: 20px;
+		background-color: #bc87ed;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	&__fio {
+		font-size: 1.5rem;
+		margin-bottom: 30px;
+		font-weight: 500;
+	}
+
+	&__language {		
+		margin-bottom: 15px;
+	}
+}
