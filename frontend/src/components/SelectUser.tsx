@@ -1,4 +1,4 @@
-import { FormControl, MenuItem, Select, TextField } from '@mui/material';
+import { FormControl, MenuItem, Select } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 import { useState } from 'react';
 
@@ -15,16 +15,11 @@ const options: Option[] = [
 ];
 
 export const SelectUser = () => {
-  const [searchTerm, setSearchTerm] = useState<string>('');
   const [selectedValue, setSelectedValue] = useState<string>('');
 
   const handleChange = (event: SelectChangeEvent<string>) => {
     setSelectedValue(event.target.value as string);
   };
-
-  const filteredOptions = options.filter((option) =>
-    option.label.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
 
   return (
     <FormControl fullWidth sx={{ width: '20ch' }} variant="outlined">
@@ -35,13 +30,7 @@ export const SelectUser = () => {
           const selectedOption = options.find((option) => option.value === selected);
           return selectedOption ? selectedOption.label : '';
         }}>
-        <TextField
-          placeholder="Поиск..."
-          variant="outlined"
-          onChange={(e) => setSearchTerm(e.target.value)}
-          fullWidth
-        />
-        {filteredOptions.map((option) => (
+        {options.map((option) => (
           <MenuItem key={option.value} value={option.value}>
             {option.label}
           </MenuItem>

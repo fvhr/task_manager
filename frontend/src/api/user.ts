@@ -25,9 +25,18 @@ export const userAuth = async (username: string, password: string) => {
 export const userRefreshToken = async () => {
   const refresh = localStorage.getItem('refresh');
   try {
-    const response = await axiosInstanсe.post('auth/user/refresh-token/', {refresh: refresh});
+    const response = await axiosInstanсe.post('auth/user/refresh-token/', { refresh: refresh });
     localStorage.setItem('access', response.data.access);
     return response;
+  } catch (error) {
+    console.log('Ошибка', error);
+  }
+};
+
+export const userInfo = async () => {
+  try {
+    const response = await axiosInstanсe.get('auth/user/info/');
+    return response.data;
   } catch (error) {
     console.log('Ошибка', error);
   }

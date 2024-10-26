@@ -4,13 +4,16 @@ import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { User } from '../types/User';
 
 interface DrawerProps {
   open: boolean;
   toggleDrawer: (open: boolean) => () => void;
+  user: User | undefined;
 }
 
-export const RigthDrawer: React.FC<DrawerProps> = ({ open, toggleDrawer }) => {
+export const RigthDrawer: React.FC<DrawerProps> = ({ open, toggleDrawer, user }) => {
   const [fio, setFio] = useState<string>('Иванов Иван Иванович');
   const [language, setLanguage] = useState<string>('Frontend');
 
@@ -27,9 +30,18 @@ export const RigthDrawer: React.FC<DrawerProps> = ({ open, toggleDrawer }) => {
     setIsEditingDate(false);
   };
 
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('access');
+    localStorage.removeItem('refresh');
+
+    navigate('/login');
+  };
+
   return (
     <div>
-      <Drawer anchor="right" open={open}  onClose={toggleDrawer(false)}>
+      <Drawer anchor="right" open={open} onClose={toggleDrawer(false)}>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Button
             variant="text"
@@ -68,7 +80,7 @@ export const RigthDrawer: React.FC<DrawerProps> = ({ open, toggleDrawer }) => {
               />
             ) : (
               <div style={{ fontSize: '1.6rem', marginTop: '25px' }}>
-                {fio}
+                {user?.fio}
                 <IconButton onClick={handleEditFio}>
                   <EditIcon />
                 </IconButton>
@@ -102,6 +114,15 @@ export const RigthDrawer: React.FC<DrawerProps> = ({ open, toggleDrawer }) => {
                 Сохранить
               </Button>
             )}
+            <div>
+              {' '}
+              <Button
+                variant="contained"
+                onClick={handleLogout}
+                sx={{ marginTop: '5rem', backgroundColor: '#6747c0' }}>
+                Выйти
+              </Button>
+            </div>
           </div>
         </Box>
       </Drawer>

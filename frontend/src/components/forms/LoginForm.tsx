@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { userAuth } from '../../api/user';
-import { useAuth } from '../../context/AuthContext';
 
 interface LoginFormInputs {
   username: string;
@@ -18,7 +17,6 @@ export const LoginForm: React.FC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormInputs>();
-  const { login } = useAuth();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -39,7 +37,13 @@ export const LoginForm: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-    login(data.username, data.password);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('access');
+    localStorage.removeItem('refresh');
+
+    navigate('/home');
   };
 
   return (
@@ -84,7 +88,7 @@ export const LoginForm: React.FC = () => {
         </Button>
       </Box>
       <Button
-        onClick={() => navigate('/home')}
+        onClick={handleLogout}
         sx={{ border: '1px solid #9144d8', color: '#9144d8' }}
         type="submit"
         style={{ marginTop: '25px' }}
