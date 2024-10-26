@@ -3,3 +3,4 @@ __pycache__/
 .env
 venv/
 .vscode
+backend/app/pgsql/migrations/versions/
