@@ -12,8 +12,8 @@ WORKDIR /app
 
 COPY --from=build /.venv /.venv
 
-COPY . .
+COPY /app /app
 
 EXPOSE 8000
 
-CMD ["granian", "--interface", "asgi", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["granian", "--interface", "asgi", "main:app", "--host", "0.0.0.0", "--port", "8000"]
