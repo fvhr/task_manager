@@ -3,12 +3,13 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useAuth } from '../../context/AuthContext';
 import { Link } from 'react-router-dom';
+import { userRegister } from '../../api/user';
+import { useAuth } from '../../context/AuthContext';
 
 interface RegisterFormInputs {
   fio: string;
-  login: string;
+  username: string;
   password: string;
   confirm_password: string;
 }
@@ -23,8 +24,8 @@ export const RegisterForm: React.FC = () => {
   const { register: registerUser } = useAuth();
 
   const onSubmit = (data: RegisterFormInputs) => {
-    console.log(data);
-    registerUser(data.fio, data.login, data.password);
+    userRegister(data.fio, data.username, data.password);
+    registerUser(data.fio, data.username, data.password);
   };
 
   const password = watch('password');
@@ -47,8 +48,8 @@ export const RegisterForm: React.FC = () => {
               {...register('fio', {
                 required: 'Поле ФИО обязательно',
                 pattern: {
-                  value: /^[А-Яа-яЁё\s-]+$/,
-                  message: 'Только кириллица, пробел или дефис',
+                  value: /^(?:[А-Яа-яЁё]+(?:\s|-|\.)){2}[А-Яа-яЁё]+$/, // Регулярное выражение для проверки формата "Ф И О"
+                  message: 'ФИО должно состоять из трех слов',
                 },
                 maxLength: {
                   value: 50,
@@ -56,14 +57,15 @@ export const RegisterForm: React.FC = () => {
                 },
               })}
             />
+
             <FormHelperText style={{ marginLeft: '12px' }}>{errors.fio?.message}</FormHelperText>
           </FormControl>
 
-          <FormControl fullWidth error={!!errors.login}>
+          <FormControl fullWidth error={!!errors.username}>
             <TextField
               label="Имя пользователя"
-              error={!!errors.login}
-              {...register('login', {
+              error={!!errors.username}
+              {...register('username', {
                 required: 'Поле имя пользователя обязательно',
                 maxLength: {
                   value: 20,
@@ -71,7 +73,9 @@ export const RegisterForm: React.FC = () => {
                 },
               })}
             />
-            <FormHelperText style={{ marginLeft: '12px' }}>{errors.login?.message}</FormHelperText>
+            <FormHelperText style={{ marginLeft: '12px' }}>
+              {errors.username?.message}
+            </FormHelperText>
           </FormControl>
 
           <FormControl fullWidth error={!!errors.password}>
@@ -115,7 +119,9 @@ export const RegisterForm: React.FC = () => {
           Зарегистрироваться
         </Button>
       </Box>
-			<Link to="/login" className="form__link">Есть аккаунт? Войдите!</Link>
+      <Link to="/login" className="form__link">
+        Есть аккаунт? Войдите!
+      </Link>
     </div>
   );
 };

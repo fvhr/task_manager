@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DrawerAdmin, Header, Project, RigthDrawer } from '../components';
+import { DrawerAdmin, Header, Project } from '../components';
 
 export const Home: React.FC = () => {
 	const [open, setOpen] = useState(false);

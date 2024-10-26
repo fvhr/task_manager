@@ -1,19 +1,14 @@
 import { Button } from '@mui/material';
 import React from 'react';
 import { useDrag } from 'react-dnd';
-
-interface Task {
-  id: number;
-  title: string;
-  assignee: string;
-  status: string;
-}
+import { Task } from '../../types/Task';
 
 interface TaskCardProps {
   task: Task;
+  onDelete: () => void;
 }
 
-export const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
+export const TaskCard: React.FC<TaskCardProps> = ({ task, onDelete }) => {
   const [{ isDragging }, dragRef] = useDrag({
     type: 'task',
     item: { id: task.id },
@@ -36,13 +31,13 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
         cursor: 'move',
       }}>
       <h3 className="task-card-title">{task.title}</h3>
-      <p className="task-card-text">{task.assignee}</p>
+      <p className="task-card-text">{task.responsible}</p>
       <div className="task-card-buttons">
         <Button sx={{ backgroundColor: '#6747c0' }} size="small" variant="contained">
           Редактировать
         </Button>
         <Button
-				
+          onClick={onDelete}
           sx={{ color: '#6747c0', border: '1px solid #6747c0' }}
           size="small"
           variant="outlined">

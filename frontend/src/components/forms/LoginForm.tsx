@@ -1,9 +1,10 @@
-import { Button, FormControl, FormHelperText } from '@mui/material';
+import { Button, CircularProgress, FormControl, FormHelperText } from '@mui/material';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import { userAuth } from '../../api/user';
 import { useAuth } from '../../context/AuthContext';
 
 interface LoginFormInputs {
@@ -19,9 +20,25 @@ export const LoginForm: React.FC = () => {
   } = useForm<LoginFormInputs>();
   const { login } = useAuth();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
 
-  const onSubmit = (data: LoginFormInputs) => {
+  const onSubmit = async (data: LoginFormInputs) => {
+    try {
+      setIsLoading(true);
+      const response = await userAuth(data.username, data.password);
+
+      if (response) {
+        navigate('/home');
+      } else {
+        console.log('Не удалось войти. Проверьте свои учетные данные.');
+      }
+    } catch (error) {
+      console.log('Ошибка при входе:', error);
+    } finally {
+      setIsLoading(false);
+    }
     login(data.username, data.password);
   };
 
@@ -63,7 +80,7 @@ export const LoginForm: React.FC = () => {
           type="submit"
           style={{ marginTop: '20px' }}
           variant="contained">
-          Войти
+          {isLoading ? <CircularProgress size={24} sx={{ color: 'white' }} /> : 'Войти'}
         </Button>
       </Box>
       <Button

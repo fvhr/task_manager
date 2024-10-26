@@ -1,4 +1,6 @@
+import { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { userRefreshToken } from './api/user';
 import { AuthProvider } from './context/AuthContext';
 import { Home } from './pages';
 import { Login } from './pages/Login';
@@ -7,6 +9,15 @@ import { Tasks } from './pages/Tasks';
 import './sass/App.scss';
 
 export const App = () => {
+  const refresh = localStorage.getItem('refresh');
+
+  useEffect(() => {
+    userRefreshToken();
+    const intervalId = setInterval(() => userRefreshToken(), 1000 * 60 * 60);
+
+    return () => clearInterval(intervalId);
+  }, [refresh]);
+
   return (
     <AuthProvider>
       <Routes>
