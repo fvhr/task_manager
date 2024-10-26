@@ -36,9 +36,9 @@ const quillModules = {
 
 export const TaskModalEditor: React.FC<TaskModalProps> = ({ open, handleClose, task }) => {
   const [title, setTitle] = useState<string>(task.title);
-  const [subtitle, setSubtitle] = useState<string>(task.subtitle);
-  const [comment, setComment] = useState<string>(task.comment);
-  const [editedComment, setEditedComment] = useState<string>(task.comment);
+  const [subtitle, setSubtitle] = useState<string>('');
+  const [comment, setComment] = useState<string>('');
+  const [editedComment, setEditedComment] = useState<string>('');
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement | undefined>(null);
   const [isTitleEditing, setIsTitleEditing] = useState(false);
   const [isSubtitleEditing, setIsSubtitleEditing] = useState(false);

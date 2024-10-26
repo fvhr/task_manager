@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const axiosInstanсe = axios.create({
-  baseURL: 'http://fvbit.ru/api/',
+  baseURL: 'https://task_manager_api.cl.ru.net/',
 });
 
 axiosInstanсe.interceptors.request.use(
