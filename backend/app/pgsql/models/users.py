@@ -14,6 +14,7 @@ class Users(Base):
     name: str = Column(String(20), nullable=False)
     surname: str = Column(String(20), nullable=False)
     patronymic: str = Column(String(20), nullable=False)
+    username: str = Column(String(20), nullable=False)
     hashed_password: str = Column(String(20), nullable=False)
     is_admin: bool = Column(Boolean, default=False)
     is_developer: bool = Column(Boolean, default=False)
