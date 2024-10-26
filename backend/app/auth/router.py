@@ -1,6 +1,6 @@
 from fastapi import HTTPException, Depends, APIRouter
 from fastapi_jwt_auth import AuthJWT
-from fastapi_jwt_auth.exceptions import MissingTokenError, JWTDecodeError
+from fastapi_jwt_auth.exceptions import MissingTokenError, JWTDecodeError, RefreshTokenRequired
 from sqlalchemy import select
 
 from auth.schema import AuthSettings, RegisterUser, LoginUser
@@ -63,5 +63,7 @@ async def refresh(authorize: AuthJWT = Depends()):
         raise HTTPException(status_code=401, detail="Не авторизирован")
     except JWTDecodeError:
         raise HTTPException(status_code=401, detail="Token invalid.")
+    except RefreshTokenRequired:
+        raise HTTPException(status_code=422, detail="Refresh token is required")
 
 
