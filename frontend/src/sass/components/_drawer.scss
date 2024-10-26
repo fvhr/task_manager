@@ -1,7 +1,8 @@
 @use "../variables";
 
 .drawer {
-	padding: 50px;
+	padding-left: 50px;
+	padding-top: 30px;
 
 	&__icon {
 		width: 150px;
@@ -24,5 +25,18 @@
 
 	&__language {		
 		margin-bottom: 15px;
+	}
+
+	&-admin {
+		padding-right: 50px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		&-title {
+			font-size: 1.4rem;
+			font-weight: 500;
+			padding-left: 50px;
+		}
 	}
 }

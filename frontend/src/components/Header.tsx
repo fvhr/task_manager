@@ -8,9 +8,11 @@ import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import { ExportToExcel } from './ExportExcel';
 
 type HeaderProps = {
   toggleDrawer: (open: boolean) => () => void;
+	isInstall: boolean;
 };
 
 const AppBar = styled(MuiAppBar)(({ theme }) => ({
@@ -20,15 +22,17 @@ const AppBar = styled(MuiAppBar)(({ theme }) => ({
   }),
 }));
 
-export const Header = ({ toggleDrawer }: HeaderProps) => {
+export const Header = ({ toggleDrawer, isInstall }: HeaderProps) => {
   // const navigate = useNavigate();
   return (
     <AppBar sx={{ backgroundColor: '#bc87ed', boxShadow: 'none', position: 'static', p: 0 }}>
-      <Toolbar  disableGutters>
+      <Toolbar className="header__flex" disableGutters>
         <Typography sx={{ fontWeight: 600 }} variant="h5" noWrap component="div">
           Разработка
         </Typography>
-        <Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center' }}>
+        <Box className="header__box" sx={{ display: 'flex', alignItems: 'center' }}>
+					{isInstall && <ExportToExcel />}
+          
           <IconButton color="inherit">
             <FilterListIcon />
           </IconButton>
