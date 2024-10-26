@@ -14,5 +14,7 @@ class Settings:
     DB_PORT: str = field(default_factory=lambda: env("DB_PORT"))
     DB_NAME: str = field(default_factory=lambda: env("DB_NAME"))
 
+    SECRET_AUTH: str = field(default_factory=lambda: env("SECRET_AUTH"))
+
 
 
