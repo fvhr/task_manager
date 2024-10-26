@@ -8,7 +8,7 @@ from auth.utils import hash_password, verify
 from pgsql.database import async_session_maker
 from pgsql.models import Users
 
-auth_router = APIRouter(prefix="/auth/jwt", tags=["Authentication"])
+auth_router = APIRouter(prefix="/auth/user", tags=["Authentication"])
 
 
 @AuthJWT.load_config
