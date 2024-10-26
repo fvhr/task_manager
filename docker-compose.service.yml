@@ -24,12 +24,6 @@ services:
       - "traefik.http.routers.traefik.service=traefik"
       - "traefik.http.services.traefik.loadbalancer.server.port=8080"
     command: --api.insecure=true --providers.docker
-  cloudflared:
-    image: cloudflare/cloudflared:latest
-    command: tunnel --no-autoupdate run --token eyJhIjoiYzM4ZmYyMTU2Yzc4MDI3NGZhOWI4ZmNkNjc5ZTMzNWIiLCJ0IjoiZWRjM2YwNDQtY2EyYi00NzA1LTk2MDctODAyYmY5MTBhOWU1IiwicyI6Ik1EYzFNall6WVRrdE1EQTBaaTAwT0RJeExXSmtaamN0WlRVMlpHWXpNemc1WW1ZMyJ9
-    networks:
-      - web
-    restart: always
 networks:
   web:
     external: true
