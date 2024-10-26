@@ -11,7 +11,7 @@ export const Project: React.FC = () => {
         onClick={() => navigate(`/project/1`)}
         sx={{
           marginTop: 2,
-          padding: 2,
+          padding: 3.5,
           border: '1px solid #ccc',
           color: '#000',
           borderRadius: '8px',

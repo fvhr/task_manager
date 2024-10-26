@@ -61,10 +61,10 @@ export const RegisterForm: React.FC = () => {
 
           <FormControl fullWidth error={!!errors.login}>
             <TextField
-              label="Логин"
+              label="Имя пользователя"
               error={!!errors.login}
               {...register('login', {
-                required: 'Поле логин обязательно',
+                required: 'Поле имя пользователя обязательно',
                 maxLength: {
                   value: 20,
                   message: 'Максимум 20 символов',

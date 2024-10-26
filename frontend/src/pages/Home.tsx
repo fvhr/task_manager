@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Header, Project, RigthDrawer } from '../components';
+import { DrawerAdmin, Header, Project, RigthDrawer } from '../components';
 
 export const Home: React.FC = () => {
 	const [open, setOpen] = useState(false);
+	const isInstall = false;
 
   const toggleDrawer = (open: boolean) => () => {
     setOpen(open);
@@ -11,8 +12,8 @@ export const Home: React.FC = () => {
   return (
     <div className="wrapper">
       <div className="container">
-        <Header toggleDrawer={toggleDrawer} />
-        <RigthDrawer open={open} toggleDrawer={toggleDrawer} />
+        <Header isInstall={isInstall} toggleDrawer={toggleDrawer} />
+        <DrawerAdmin open={open} toggleDrawer={toggleDrawer} />
 				<div className="project">
 					<Project/>
 				</div>
