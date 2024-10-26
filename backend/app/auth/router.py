@@ -16,7 +16,7 @@ def get_config():
     return AuthSettings()
 
 
-@auth_router.post('/register')
+@auth_router.post('/register/')
 async def register(user: RegisterUser):
     name, surname, patronymic = user.fio.split(" ") if " " in user.fio else user.fio.split("-")
     async with async_session_maker() as session:
@@ -37,7 +37,7 @@ async def register(user: RegisterUser):
         return {"status": "success"}
 
 
-@auth_router.post('/login')
+@auth_router.post('/login/')
 async def login(user: LoginUser, authorize: AuthJWT = Depends()):
     async with async_session_maker() as session:
         query = select(Users).where(user.username == Users.username)
@@ -51,7 +51,7 @@ async def login(user: LoginUser, authorize: AuthJWT = Depends()):
     return {"access_token": access_token, "refresh_token": refresh_token}
 
 
-@auth_router.post('/refresh')
+@auth_router.post('/refresh/')
 async def refresh(authorize: AuthJWT = Depends()):
     try:
         authorize.jwt_refresh_token_required()
