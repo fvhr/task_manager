@@ -16,5 +16,11 @@ class Settings:
 
     SECRET_AUTH: str = field(default_factory=lambda: env("SECRET_AUTH"))
 
+    ADMIN_USERNAME: str = field(default_factory=lambda: env("ADMIN_USERNAME"))
+    ADMIN_PASSWORD: str = field(default_factory=lambda: env("ADMIN_PASSWORD"))
+    ADMIN_NAME: str = field(default_factory=lambda: env("ADMIN_NAME"))
+    ADMIN_SURNAME: str = field(default_factory=lambda: env("ADMIN_SURNAME"))
+    ADMIN_PATRONYMIC: str = field(default_factory=lambda: env("ADMIN_PATRONYMIC"))
+
 
 
