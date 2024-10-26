@@ -2,15 +2,27 @@ services:
   backend:
     build:
       context: backend
+      dockerfile: Dockerfile
+    networks:
+      - web
     ports:
       - "8000:8000"
-    env_file:
-      - .env
-
-  nginx:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.routers.backend.rule=Host(`backend.localhost`)"
+      - "traefik.http.services.backend.loadbalancer.server.port=80"
+  frontend:
     build:
-      context: nginx
-    ports:
-      - "80:80"
-    depends_on:
-      - backend
+      context: frontend
+      dockerfile: Dockerfile
+    networks:
+      - web
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.docker.network=web'
+      - 'traefik.http.routers.frontend.rule=Host(`frontend.localhost`)'
+      - 'traefik.http.services.frontend.loadbalancer.server.port=80'
+networks:
+  web:
+    external: true
