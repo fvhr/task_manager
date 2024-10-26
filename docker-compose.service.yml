@@ -6,16 +6,9 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: task_manager
     networks:
       - web
-    ports:
-      - "5432:5432"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=web"
-      - "traefik.http.routers.postgresql.service=traefik"
-      - "traefik.http.routers.postgresql.rule=Host(`postgresql.localhost`)"
-      - "traefik.http.services.postgresql.loadbalancer.server.port=5432"
   traefik:
     image: traefik:latest
     restart: unless-stopped
@@ -29,25 +22,14 @@ services:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
       - "traefik.http.routers.traefik.service=traefik"
-      - "traefik.http.routers.traefik.rule=Host(`traefik.localhost`)"
       - "traefik.http.services.traefik.loadbalancer.server.port=8080"
     command: --api.insecure=true --providers.docker
-  pgadmin:
-    image: dpage/pgadmin4
-    restart: unless-stopped
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: admin
-    labels:
-      - "traefik.enable=true"
-      - "traefik.docker.network=web"
-      - "traefik.http.routers.pgadmin.rule=Host(`pgadmin.localhost`)"
-      - "traefik.http.services.pgadmin.loadbalancer.server.port=80"
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    command: tunnel --no-autoupdate run --token eyJhIjoiYzM4ZmYyMTU2Yzc4MDI3NGZhOWI4ZmNkNjc5ZTMzNWIiLCJ0IjoiZWRjM2YwNDQtY2EyYi00NzA1LTk2MDctODAyYmY5MTBhOWU1IiwicyI6Ik1EYzFNall6WVRrdE1EQTBaaTAwT0RJeExXSmtaamN0WlRVMlpHWXpNemc1WW1ZMyJ9
     networks:
       - web
-    depends_on:
-      - traefik
-      - postgresql
+    restart: always
 networks:
   web:
     external: true
