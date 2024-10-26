@@ -24,11 +24,27 @@ export const Header = ({ toggleDrawer }: HeaderProps) => {
   // const navigate = useNavigate();
   return (
     <AppBar sx={{ backgroundColor: '#bc87ed', boxShadow: 'none', position: 'static', p: 0 }}>
-      <Toolbar  disableGutters>
+      <Toolbar disableGutters>
         <Typography sx={{ fontWeight: 600 }} variant="h5" noWrap component="div">
           Разработка
         </Typography>
         <Box sx={{ ml: 'auto', display: 'flex', alignItems: 'center' }}>
+          <svg
+					style={{marginRight: '20px', cursor: 'pointer'}}
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="lucide lucide-download">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" x2="12" y1="15" y2="3" />
+          </svg>
           <IconButton color="inherit">
             <FilterListIcon />
           </IconButton>

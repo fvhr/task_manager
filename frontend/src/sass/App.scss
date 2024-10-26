@@ -33,5 +33,21 @@
 	font-size: 24px; /* Размер шрифта */
 	font-weight: bold; /* Жирность текста */
 	color: #553c9a; /* Цвет текста */
-	margin-bottom: 20px;
+}
+
+.task-card {
+
+	&-title {
+		margin-bottom: 10px;
+		font-size: 1.2rem;
+	}
+
+	&-text {
+		margin-bottom: 25px;
+	}
+
+	&-buttons {
+		display: flex;
+		justify-content: space-between;
+	}
 }
