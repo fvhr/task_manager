@@ -1,11 +1,10 @@
-import { Button, FormControl, FormHelperText } from '@mui/material';
+import { Button, CircularProgress, FormControl, FormHelperText } from '@mui/material';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { userRegister } from '../../api/user';
-import { useAuth } from '../../context/AuthContext';
 
 interface RegisterFormInputs {
   fio: string;
@@ -21,11 +20,26 @@ export const RegisterForm: React.FC = () => {
     formState: { errors },
     watch,
   } = useForm<RegisterFormInputs>();
-  const { register: registerUser } = useAuth();
 
-  const onSubmit = (data: RegisterFormInputs) => {
-    userRegister(data.fio, data.username, data.password);
-    registerUser(data.fio, data.username, data.password);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const navigate = useNavigate();
+
+  const onSubmit = async (data: RegisterFormInputs) => {
+    try {
+      setIsLoading(true);
+      const response = await userRegister(data.fio, data.username, data.password);
+
+      if (response) {
+        navigate('/login');
+      } else {
+        console.log('Не удалось войти. Проверьте свои учетные данные.');
+      }
+    } catch (error) {
+      console.log('Ошибка при входе:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const password = watch('password');
@@ -49,7 +63,7 @@ export const RegisterForm: React.FC = () => {
                 required: 'Поле ФИО обязательно',
                 pattern: {
                   value: /^(?:[А-Яа-яЁё]+(?:\s|-|\.)){2}[А-Яа-яЁё]+$/, // Регулярное выражение для проверки формата "Ф И О"
-                  message: 'ФИО должно состоять из трех слов',
+                  message: 'ФИО должно состоять из трех слов (кириллица)',
                 },
                 maxLength: {
                   value: 50,
@@ -116,7 +130,11 @@ export const RegisterForm: React.FC = () => {
           type="submit"
           style={{ marginTop: '20px' }}
           variant="contained">
-          Зарегистрироваться
+          {isLoading ? (
+            <CircularProgress size={24} sx={{ color: 'white' }} />
+          ) : (
+            'Зарегистрироваться'
+          )}
         </Button>
       </Box>
       <Link to="/login" className="form__link">

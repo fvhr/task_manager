@@ -1,33 +1,27 @@
+import { useEffect, useState } from 'react';
 import * as XLSX from 'xlsx';
+import { getTasks } from '../api/tasks';
+import { Task } from '../types/Task';
 
-interface Task {
-	id: number;
-  title: string;
-  description: string;
-  assignee: string;
-  comments: string;
-}
-
-const tasks: Task[] = [
-  {
-		id: 1,
-    title: 'Задача 1',
-    description: 'Описание задачи 1',
-    assignee: 'Иван',
-    comments: 'Комментарий 1',
-  },
-	{
-		id: 2,
-    title: 'Задача 2',
-    description: 'Описание задачи 2',
-    assignee: 'Яма 3',
-    comments: 'Комментарий 2',
-  },
-];
+type GetTasksResponse = Task[];
 
 export const ExportToExcel = () => {
+  const [tasks, setTasks] = useState<GetTasksResponse | undefined>();
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const result = await getTasks();
+        setTasks(result);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchTasks();
+  }, []);
+
   const exportToExcel = () => {
-    const worksheet = XLSX.utils.json_to_sheet(tasks);
+    const worksheet = XLSX.utils.json_to_sheet(tasks || []);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Tasks');
 

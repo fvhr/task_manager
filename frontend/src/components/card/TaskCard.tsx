@@ -1,7 +1,8 @@
 import { Button } from '@mui/material';
-import React from 'react';
+import React, { useState } from 'react';
 import { useDrag } from 'react-dnd';
 import { Task } from '../../types/Task';
+import { TaskModalEditor } from '../TaskModalEditor';
 
 interface TaskCardProps {
   task: Task;
@@ -16,6 +17,12 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onDelete }) => {
       isDragging: !!monitor.isDragging(),
     }),
   });
+
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleClose = () => {
+    setOpenModal(false);
+  };
 
   return (
     <div
@@ -33,7 +40,11 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onDelete }) => {
       <h3 className="task-card-title">{task.title}</h3>
       <p className="task-card-text">{task.responsible}</p>
       <div className="task-card-buttons">
-        <Button sx={{ backgroundColor: '#6747c0' }} size="small" variant="contained">
+        <Button
+          onClick={() => setOpenModal(true)}
+          sx={{ backgroundColor: '#6747c0' }}
+          size="small"
+          variant="contained">
           Редактировать
         </Button>
         <Button
@@ -44,6 +55,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({ task, onDelete }) => {
           Удалить
         </Button>
       </div>
+      {openModal && <TaskModalEditor open={openModal} handleClose={handleClose} task={task} />}
     </div>
   );
 };

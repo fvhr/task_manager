@@ -37,10 +37,10 @@ export const DrawerAdmin: React.FC<DrawerProps> = ({ open, toggleDrawer }) => {
         </div>
 
         <Box sx={{ width: '50vw' }} role="presentation">
-					<div className="drawer-admin-title">Панель администратора</div>
+          <div className="drawer-admin-title">Панель администратора</div>
           <div className="drawer drawer-admin">
             <div>Иванов И. И.</div>
-						<SelectUser/>
+            <SelectUser />
             <div>20.10.2024</div>
           </div>
         </Box>

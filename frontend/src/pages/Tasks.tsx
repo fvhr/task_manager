@@ -1,11 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Header, RigthDrawer } from '../components';
+import { userInfo } from '../api/user';
+import { DrawerAdmin, Header, RigthDrawer } from '../components';
 import { Board } from '../components/card';
+import { User } from '../types/User';
 
 export const Tasks: React.FC = () => {
   const [open, setOpen] = useState(false);
   const isInstall = true;
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
+  const [user, setUser] = useState<User>();
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const result: User | undefined = await userInfo();
+        if (result) {
+          setIsAdmin(result.is_superuser);
+          setUser(result);
+        }
+      } catch (error) {
+        console.log('Ошибка', error);
+      }
+    };
+    fetchUserInfo();
+  }, []);
 
   const toggleDrawer = (open: boolean) => () => {
     setOpen(open);
@@ -45,7 +64,11 @@ export const Tasks: React.FC = () => {
           </svg>
           Назад к проектам
         </div>
-        <RigthDrawer open={open} toggleDrawer={toggleDrawer} />
+        {!isAdmin ? (
+          <DrawerAdmin open={open} toggleDrawer={toggleDrawer} />
+        ) : (
+          <RigthDrawer user={user || undefined} open={open} toggleDrawer={toggleDrawer} />
+        )}
         <div className="tasks">
           <Board />
         </div>

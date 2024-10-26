@@ -7,3 +7,12 @@ export interface Task {
   board: number;
   responsible: number;
 }
+
+export interface FormTask {
+	title: string;
+  description: string;
+  project: number; 
+  user: number; 
+  stage: string; 
+  board: number; 
+}
