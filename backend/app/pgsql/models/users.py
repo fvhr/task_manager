@@ -16,6 +16,7 @@ class Users(Base):
     patronymic: str = Column(String(20), nullable=False)
     username: str = Column(String(20), nullable=False, unique=True)
     hashed_password: str = Column(String(20), nullable=False)
+    username: str = Column(String(20), nullable=False, unique=True)
     is_admin: bool = Column(Boolean, default=False)
     is_developer: bool = Column(Boolean, default=False)
     create_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
