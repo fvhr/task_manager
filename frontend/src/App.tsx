@@ -3,8 +3,8 @@ import { AuthProvider } from './context/AuthContext';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import './sass/App.scss';
-import { ProtectedRoute } from './routes/ProtectedRoute';
 import { Home } from './pages';
+import { Tasks } from './pages/Tasks';
 
 export const App = () => {
   return (
@@ -14,14 +14,8 @@ export const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<Home />} />
-				<Route
-          path="/profile" 
-          element={
-            <ProtectedRoute>
-              <div>пенис</div>
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/tasks/:id" element={<Tasks />} />
+			
       </Routes>
     </AuthProvider>
   );
