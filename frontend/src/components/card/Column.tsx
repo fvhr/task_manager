@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import React from 'react';
 import { useDrop } from 'react-dnd';
 import { TaskCard } from './TaskCard';
@@ -24,6 +25,21 @@ export const Column: React.FC<ColumnProps> = ({ title, tasks, moveTask }) => {
     }),
   });
 
+  let borderColor;
+  switch (title) {
+    case 'Бэклог':
+      borderColor = '#787878'; 
+      break;
+    case 'В процессе':
+      borderColor = '#e6e60b'; 
+      break;
+    case 'Выполнено':
+      borderColor = '#10ad10'; 
+      break;
+    default:
+      borderColor = 'gray'; 
+  }
+
   return (
     <div
       ref={dropRef}
@@ -31,10 +47,16 @@ export const Column: React.FC<ColumnProps> = ({ title, tasks, moveTask }) => {
         flex: 1,
         padding: '1rem',
         backgroundColor: isOver ? '#dbdbdb' : 'white',
-        border: '1px solid #ccc',
+        border: `3px solid ${borderColor}`,
         borderRadius: '4px',
       }}>
-      <h2 className="column-title">{title}</h2>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+        <h2 className="column-title">{title}</h2>
+        <Button   sx={{ color: '#6747c0', border: '1px solid #6747c0' }} size="small" variant="outlined">
+          Добавить
+        </Button>
+      </div>
+
       {tasks.map((task) => (
         <TaskCard key={task.id} task={task} />
       ))}

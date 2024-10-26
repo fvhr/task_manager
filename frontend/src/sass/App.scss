@@ -18,7 +18,7 @@
 .container {
 	max-width: 1250px;
 	margin: 0 auto;
-	padding: 15px 0px;
+	padding: 0px 12px;
 	box-sizing: border-box;
 }
 
@@ -27,11 +27,46 @@
 }
 
 .tasks {
-	margin-top: 50px;
+	margin-top: 35px;
 }
 .column-title {
 	font-size: 24px; /* Размер шрифта */
 	font-weight: bold; /* Жирность текста */
 	color: #553c9a; /* Цвет текста */
-	margin-bottom: 20px;
+}
+
+.task-card {
+
+	&-title {
+		margin-bottom: 10px;
+		font-size: 1.2rem;
+	}
+
+	&-text {
+		margin-bottom: 25px;
+	}
+
+	&-buttons {
+		display: flex;
+		justify-content: space-between;
+	}
+}
+
+.header__box {
+	margin-left: auto;
+}
+
+@media (max-width: 620px) {
+	.header__flex {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		margin-left: 0px;
+		padding-top: 10px;
+	}
+
+	.header__box {
+		margin-left: 0px;
+		margin-top: 20px;
+	}
 }
