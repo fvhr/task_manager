@@ -6,7 +6,7 @@ from auth.router import auth_router
 from api.v1.router import api_router
 from auth.utils import hash_password
 from pgsql.database import async_session_maker
-from pgsql.models import Users
+from pgsql.models import Users, Projects
 from settings import Settings
 
 app = FastAPI(title="API Task Manager")
@@ -40,5 +40,9 @@ async def startup_event():
                 hashed_password=hash_password(settings.ADMIN_PASSWORD),
                 is_admin=True
             )
+            new_project = Projects(name="Разработка", description="Создать сайт")
+            session.add(new_project)
+            new_project2 = Projects(name="Обработка", description="Обработать excel")
+            session.add(new_project2)
             session.add(user)
             await session.commit()
