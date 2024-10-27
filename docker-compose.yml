@@ -12,6 +12,11 @@ services:
       DB_PORT: 5432
       DB_NAME: task_manager
       SECRET_AUTH: "12ed2ddedxwx3ed433ed23ed"
+      ADMIN_USERNAME: admin
+      ADMIN_PASSWORD: admin
+      ADMIN_NAME: admin
+      ADMIN_SURNAME: admin
+      ADMIN_PATRONYMIC: admin
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
