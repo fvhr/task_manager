@@ -35,7 +35,7 @@ export const Home: React.FC = () => {
     <div className="wrapper">
       <div className="container">
         <Header isInstall={isInstall} toggleDrawer={toggleDrawer} />
-        {isAdmin ? (
+        {!isAdmin ? (
           <DrawerAdmin open={open} toggleDrawer={toggleDrawer} />
         ) : (
           <RigthDrawer user={user || undefined} open={open} toggleDrawer={toggleDrawer} />
