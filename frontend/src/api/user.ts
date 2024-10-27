@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { axiosInstanсe } from './instance';
 
 export const userRegister = async (fio: string, username: string, password: string) => {
@@ -21,17 +22,21 @@ export const userAuth = async (username: string, password: string) => {
     console.log('Ошибка', error);
   }
 };
-
 export const userRefreshToken = async () => {
   const refresh = localStorage.getItem('refresh');
   try {
-    const response = await axiosInstanсe.post('auth/user/refresh/', { refresh: refresh });
+    const response = await axios.post('https://task_manager_api.cl.ru.net/auth/user/refresh/', null, {
+      headers: {
+        Authorization: `Bearer ${refresh}`
+      }
+    });
     localStorage.setItem('access', response.data.access_token);
     return response;
   } catch (error) {
     console.log('Ошибка', error);
   }
 };
+
 
 export const userInfo = async () => {
   try {

@@ -42,7 +42,7 @@ export const TaskModalEditor: React.FC<TaskModalProps> = ({ open, handleClose, t
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement | undefined>(null);
   const [isTitleEditing, setIsTitleEditing] = useState(false);
   const [isSubtitleEditing, setIsSubtitleEditing] = useState(false);
-  const [isCommentEditing, setIsCommentEditing] = useState(false);
+  // const [isCommentEditing, setIsCommentEditing] = useState(false);
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -62,7 +62,7 @@ export const TaskModalEditor: React.FC<TaskModalProps> = ({ open, handleClose, t
   const saveComment = () => {
     setComment(editedComment);
     // updateTask({ ...task, comment: editedComment });
-    setIsCommentEditing(false);
+    // setIsCommentEditing(false);
   };
 
   return (
