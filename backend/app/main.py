@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy import select
 
 from auth.router import auth_router
+from api.v1.router import api_router
 from auth.utils import hash_password
 from pgsql.database import async_session_maker
 from pgsql.models import Users
@@ -13,6 +14,7 @@ app = FastAPI(title="API Task Manager")
 settings = Settings()
 
 app.include_router(auth_router)
+app.include_router(api_router)
 
 app.add_middleware(
     CORSMiddleware,
